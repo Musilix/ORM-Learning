@@ -1,0 +1,22 @@
+version: '3.8'
+services: 
+  peoplehub-web:
+    container_name: peoplehub-web
+    build: .
+    depends_on:
+      - db
+  # Is this svc completely necessary? We won't usually deploy out our DB through a docker container in the prod env
+  # But a docker compose file would be good if any other micro svcs need to be included?
+  peoplehub-db:
+    image: postgres:13
+    container_name: peoplehub-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=kareem
+      - POSTGRES_PASSWORD=560688Ks!
+      - POSTGRES_DATABASE=PEOPLEHUB
+    volumes:
+      - psql-orm-app-data:/var/lib/postgresql/newdata
+volumes:
+  psql-orm-app-data:
