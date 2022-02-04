@@ -6,6 +6,7 @@ import "dotenv/config";
 (async function main() {
   let retries = 5;
 
+  // Very bulky way to create a connection to DB and wait for it to be fully established before moving on...
   const connection: Connection = await new Promise<Connection>(
     async (resolve, reject) => {
       // Create a loop to set up retries, as DB may not be fully initialized by the time we reach this code here
@@ -28,11 +29,11 @@ import "dotenv/config";
     }
   );
 
-  // const person: Person = new Person();
-  // createPerson(person, "guyguy", "help me");
+  const person: Person = new Person();
+  createPerson(person, "guyguy", "help me"); // don't need to reassign to our person object as the fields get "shared" in a reference-y sense. So the changes that take place in the createPerson() function persist out here
 
-  // await connection.getRepository(Person).save(person);
   // await connection.manager.save(person);
+  // await connection.getRepository(Person).save(person);
   // console.log("Saved a new person with id: " + person.id);
 
   console.log("Loading users from the database...");
